@@ -17,6 +17,8 @@ if(MSVC)
 endif()
 
 INCLUDE_DIRECTORIES(${K4A_INCLUDE_DIRS})
+set(GLEW_INCLUDE_DIR "C:/Program Files (x86)/glew/include")
+set(GLEW_LIBRARY "C:/Program Files (x86)/glew/lib/libglew32.dll.a")#可以藉由在target_link_libraries中使用GLEW::GLEW代替
 include_directories(${OpenCV_INCLUDE_DIR})
 include_directories(${ArUco_INCLUDE_DIRS})
 include_directories(${GLM_INCLUDE_DIRS})

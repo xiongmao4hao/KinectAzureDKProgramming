@@ -15,4 +15,5 @@ include_directories(${ArUco_INCLUDE_DIRS})
 include_directories(${EIGEN_INCLUDE_DIR})
 INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR})
 add_executable(TwoKinects_Calibration_Extrinsics "Source_TwoKinects_Calibration.cpp" "../StaticImageProperties.cpp")
-target_link_libraries(TwoKinects_Calibration_Extrinsics ${OpenCV_LIBS} ${ArUco_LIBRARIES} ${K4A_LIBS})
+target_link_libraries(TwoKinects_Calibration_Extrinsics ${OpenCV_LIBS} ${aruco_LIBS} ${K4A_LIBS})
+

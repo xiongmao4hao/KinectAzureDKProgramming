@@ -116,7 +116,7 @@ int main(int argc, char **argv)
 	dic = aruco::Dictionary::load("ARUCO_MIP_36h12");
 	CamParam.setParams(camera_matrix_color, dist_coeffs_color, cv::Size(texture_width, texture_height));
 	MDetector.setDictionary("ARUCO_MIP_36h12", 0.05f);
-	MDetector.setDetectionMode(aruco::DM_NORMAL);
+	MDetector.setDetectionMode(aruco::DM_NORMAL);//检测方式
 
 	k4a::capture capture_master;
 	k4a::capture capture_sub;
@@ -207,11 +207,20 @@ int main(int argc, char **argv)
 
 			if (poseEstimationOK_master && poseEstimationOK_sub)
 			{
-				Eigen::Affine3d frame_master_sub = frame_master_marker * frame_sub_marker.inverse();
-
 				cv::Vec3d rvec, tvec;
-				eigenTransform2cvRvecTvec(frame_sub_marker, rvec, tvec);
-				drawAxis(colorFrame_sub, camera_matrix_color, dist_coeffs_color, rvec, tvec, 0.5f);
+				Eigen::Affine3d frame_master_sub = frame_master_marker * frame_sub_marker.inverse();
+				eigenTransform2cvRvecTvec(frame_master_sub, rvec, tvec);//坐标变换矩阵变旋转和平移向量
+				// // writeToCSVfile<double>("rves_sub_master.csv", rvec);
+				// // writeToCSVfile<double>("tvec_sub_master.csv", tvec);
+				cout << rvec << endl;
+				cout << tvec << endl;
+				Eigen::Matrix4d frame_matrix2 = frame_master_sub.matrix();
+				std::cout << "frame_master_sub" << std::endl;
+				writeToCSVfile<double>("frame_master_sub.csv", frame_matrix2);
+				std::cout << "save matrix into csv file OK.\n";
+				
+				eigenTransform2cvRvecTvec(frame_sub_marker, rvec, tvec);//坐标变换矩阵变旋转和平移向量
+				drawAxis(colorFrame_sub, camera_matrix_color, dist_coeffs_color, rvec, tvec, 0.5f);//画坐标
 
 				Eigen::Affine3d frame_sub_master = frame_sub_marker * frame_master_marker.inverse();
 				eigenTransform2cvRvecTvec(frame_sub_master, rvec, tvec);
@@ -225,6 +234,15 @@ int main(int argc, char **argv)
 				writeToCSVfile<double>("frame_sub_marker.csv", frame_matrix);
 				std::cout << "save matrix into csv file OK.\n";
 				drawAxis(colorFrame_sub, camera_matrix_color, dist_coeffs_color, rvec, tvec, 0.5f);
+
+				//显示主摄像头的ArUco
+				Eigen::Affine3d frame_mamarker_sub = frame_master_marker.inverse() * frame_master_sub;
+				Eigen::Affine3d frame_sub_mamarker = frame_mamarker_sub.inverse();
+				eigenTransform2cvRvecTvec(frame_sub_mamarker, rvec, tvec);
+				frame_matrix = frame_sub_mamarker.matrix();
+				writeToCSVfile<double>("frame_sub_mamarker.csv", frame_matrix);
+				std::cout << "save matrix into csv file OK.\n";
+				// drawAxis(colorFrame_sub, camera_matrix_color, dist_coeffs_color, rvec, tvec, 0.5f);
 			}
 			else
 			{

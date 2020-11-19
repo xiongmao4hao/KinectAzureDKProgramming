@@ -6,14 +6,14 @@ if (azure-kinect-sensor-sdk_CONFIG_INCLUDED)
 endif()
 set(azure-kinect-sensor-sdk_CONFIG_INCLUDED TRUE)
 
-set(K4A_INSTALL_PATH "C:/Program Files/Azure Kinect SDK v${azure-kinect-sensor-sdk_FIND_VERSION}")
+set(K4A_INSTALL_PATH "H:/c++Enviroment/Azure Kinect SDK v${azure-kinect-sensor-sdk_FIND_VERSION}")
 set(K4A_LIB_PATH "${K4A_INSTALL_PATH}/sdk/windows-desktop/amd64/release/lib")
 set(K4A_BIN_PATH "${K4A_INSTALL_PATH}/sdk/windows-desktop/amd64/release/bin")
 
 set(azure-kinect-sensor-sdk_INCLUDE_DIRS "${K4A_INSTALL_PATH}/sdk/include")
 
 foreach(lib k4a;k4arecord)
-
+  message("sdafdasfasdfsdafdas${lib}")
   set(onelib "${lib}-NOTFOUND")
   find_library(onelib ${lib}
       PATHS "${K4A_LIB_PATH}"
@@ -40,7 +40,7 @@ foreach(lib k4a;k4arecord)
 
   list(APPEND azure-kinect-sensor-sdk_LIBRARIES azure-kinect-sensor-sdk-${lib})
 
-endforeach()
+endforeach(lib)
 
 foreach(bin depthengine_2_0)
 
