@@ -69,12 +69,11 @@
 Copyright &copy; 2019 Haipeng WANG  
 Distributed under the [MIT License](http://www.opensource.org/licenses/mit-license.php "MIT License | Open Source Initiative").  
 
-Contact
--------
-* Haipeng Wang
-    * E-mail: <forestsen@vip.qq.com>
-
 ## References
+
+* Kinect Azure DK programming
+  
+  https://github.com/forestsen/KinectAzureDKProgramming
 
 * Kinect2Grabber
   
@@ -88,6 +87,4 @@ Contact
 
 PS: 
 
-I choose the Visual Studio 2017 Win64 compiler to CMake.
-
-On the Visual Studio 2017 platform, the **x64|Release** version is strongly recommended.
+使用vscode配合cmake插件
