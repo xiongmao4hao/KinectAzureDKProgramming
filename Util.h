@@ -1,5 +1,5 @@
 #pragma once
-#include <windows.h>
+//#include <windows.h>
 
 #include <string>
 
@@ -14,7 +14,7 @@
 namespace sen
 {
 	void create_xy_table(const k4a::calibration &calibration, k4a::image &xy_table);
-	double ElapsedTime(const LARGE_INTEGER& start, const LARGE_INTEGER& end);
+	double ElapsedTime(const uint64_t& start, const uint64_t& end);
 	void checkGlError(const char* op);
 	inline uint32_t k4a_convert_fps_to_uint(k4a_fps_t fps)
 	{

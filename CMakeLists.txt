@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 2.8.3)
 project(K4AProgramming)
 
 # set(OpenCV_DIR C:/Users/zz/Desktop/tryOpencv/OpenCV-MinGW-Build/x64/mingw/lib)
-set(GLUT_INCLUDE_DIR "C:/Program Files (x86)/freeglut/include")
-set(OPENGL_LIBRARY_DIR "C:\\Program Files (x86)\\freeglut\\lib")
-set(Eigen3_DIR "C:/Program Files (x86)/Eigen3/share/eigen3/cmake")
+#set(GLUT_INCLUDE_DIR "C:/Program Files (x86)/freeglut/include")
+#set(OPENGL_LIBRARY_DIR "C:\\Program Files (x86)\\freeglut\\lib")
+#set(Eigen3_DIR "C:/Program Files (x86)/Eigen3/share/eigen3/cmake")
 # set(Aruco_DIR "C:\\Program Files (x86)\\aruco\\share\\aruco")
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
@@ -162,6 +162,9 @@ FIND_PACKAGE(GLUT REQUIRED)
 # FIND_PACKAGE(PCL 1.9.1 REQUIRED COMPONENTS io visualization)
 FIND_PACKAGE(Eigen3 REQUIRED)
 set(EIGEN_INCLUDE_DIR ${EIGEN3_INCLUDE_DIR})#为了支持原作者的eigen命名
+if (POLICY CMP0072)
+  set(OpenGL_GL_PREFERENCE LEGACY)
+endif()
 find_package(OpenGL REQUIRED)
 #以下3个添加均对windows无效
 include_directories(${OpenGL_INCLUDE_DIRS})
@@ -175,18 +178,19 @@ endif(NOT OPENGL_FOUND)
 # FIND_PACKAGE(Open3D REQUIRED)
 
 # Find GLFW. You have set the GLFW_ROOT path with your environment.
-set(GLFW_ROOT "H:/c++Enviroment/glfw-3.3.2.bin.WIN64/")
-IF(NOT GLFW_ROOT)
-    MESSAGE("ERROR: GLFW_ROOT must be set!")
-ENDIF(NOT GLFW_ROOT)
+# set(GLFW_ROOT "H:/c++Enviroment/glfw-3.3.2.bin.WIN64/")
+# IF(NOT GLFW_ROOT)
+#     MESSAGE("ERROR: GLFW_ROOT must be set!")
+# ENDIF(NOT GLFW_ROOT)
 
-FIND_PATH(GLFW_INCLUDE_DIRS DOC "Path to GLFW include directory."
-    NAMES GLFW/glfw3.h
-    PATHS ${GLFW_ROOT}/include)
+# FIND_PATH(GLFW_INCLUDE_DIRS DOC "Path to GLFW include directory."
+#     NAMES GLFW/glfw3.h
+#     PATHS ${GLFW_ROOT}/include)
 
-FIND_LIBRARY(GLFW_LIBRARIES DOC "Absolute path to GLFW library."
-    NAMES libglfw3dll.a
-    PATHS ${GLFW_ROOT}/lib-mingw-w64)
+# FIND_LIBRARY(GLFW_LIBRARIES DOC "Absolute path to GLFW library."
+#     NAMES libglfw3dll.a
+#     PATHS ${GLFW_ROOT}/lib-mingw-w64)
+find_package(glfw3 REQUIRED)
  
 #GLEW_VERBOSE是打开部分报错显示
 # set(GLEW_VERBOSE true)
@@ -245,10 +249,10 @@ FIND_PATH(GLM_INCLUDE_DIRS DOC "Path to GLM include directory." NAMES glm/glm.hp
 
 add_subdirectory(OpenCV_OneKinect)
 add_subdirectory(OpenCV_TwoKinects)
-add_subdirectory(OpenGL_GLUT_ShowImage)
+# add_subdirectory(OpenGL_GLUT_ShowImage)
 # add_subdirectory(OpenGL_GLUT_ArUco_AR)
-add_subdirectory(OpenGL_GLFW_GLEW_ArUco_AR)
-add_subdirectory(OpenGL_GLFW_GLEW_PointCloudRenderer)
+# add_subdirectory(OpenGL_GLFW_GLEW_ArUco_AR)
+# add_subdirectory(OpenGL_GLFW_GLEW_PointCloudRenderer)
 add_subdirectory(Aruco_TwoKinects_Calibration_Extrinsics)
 # add_subdirectory(OpenCV_TwoKinects_GreenScreen)
 # add_subdirectory(OneKinect_Recording_RGB_DEPTH_IR)

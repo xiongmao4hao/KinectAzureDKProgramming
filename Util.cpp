@@ -1,7 +1,7 @@
 #include <iostream>
 
 #ifdef USE_GL_3
-#include <windows.h>
+//#include <windows.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #endif
@@ -44,11 +44,11 @@ void sen::create_xy_table(const k4a::calibration &calibration, k4a::image &xy_ta
 		}
 	}
 }
-double sen::ElapsedTime(const LARGE_INTEGER& start, const LARGE_INTEGER& end)
+double sen::ElapsedTime(const uint64_t& start, const uint64_t& end)
 {
-	LARGE_INTEGER freq;
-	QueryPerformanceFrequency(&freq);
-	return (double(end.QuadPart) - double(start.QuadPart)) * 1000.0 / double(freq.QuadPart);
+	time_t timer;
+	time_t time(timer);
+	return (double(end) - double(start)) * 1000.0 / double(timer);
 }
 
 #ifdef USE_GL_3
